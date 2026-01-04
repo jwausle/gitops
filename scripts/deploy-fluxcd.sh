@@ -2,6 +2,7 @@ CLUSTER_NAME=${1:-./fluxcd/clusters/localhost}
 BRANCH=${BRANCH:-$(git rev-parse --abbrev-ref HEAD)}
 GITHUB_USER=${GITHUB_USER:-jwausle}
 GITHUB_TOKEN=${GITHUB_TOKEN:-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}
+GITHUB_REPO_NAME=${GITHUB_REPO_NAME:-$(basename `git rev-parse --show-toplevel`)}
 
 if [[ "${CLUSTER_NAME}" == */localhost  ]] && [[ "${KUBECONFIG}" != *.k3s/kubeconfig.yaml ]]; then
    echo "export KUBECONFIG=$(pwd)/.k3s/kubeconfig.yaml to install at localhost "
@@ -14,7 +15,7 @@ flux install
 # Connect flux with the gitrepo (upload ssh key and push flux-system components)
 flux bootstrap github \
   --owner=jwausle \
-  --repository=gitops.fluxcd \
+  --repository=${GITHUB_REPO_NAME} \
   --private=false \
   --personal=true \
   --branch=${BRANCH} \
