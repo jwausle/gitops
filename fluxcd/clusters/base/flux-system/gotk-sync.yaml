@@ -11,7 +11,12 @@ spec:
     branch: master
   secretRef:
     name: flux-system
-  url: ssh://git@github.com/jwausle/gitops.fluxcd
+  url: https://github.com/jwausle/gitops.git
+  ignore: |
+    # exclude all
+    /*
+    # include deploy dir
+    !/fluxcd
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
