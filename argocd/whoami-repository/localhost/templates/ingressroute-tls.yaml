@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: service-whoami-repository-tls
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: PathPrefix(`{{ .Values.ingressRoute.path }}`)
+      kind: Rule
+      middlewares:
+        - name: strip-whoami-repository
+      services:
+        - name: whoami-repository
+          port: http
+  tls: {}

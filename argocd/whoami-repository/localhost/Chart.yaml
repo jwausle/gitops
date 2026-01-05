@@ -1,0 +1,10 @@
+apiVersion: v1
+description: "Deployment wrapper for traefik"
+name: "whoami-repository-app"
+version: 6.0.0
+
+dependencies:
+  - name: "whoami"
+    version: "6.0.0"
+    repository: "https://cowboysysop.github.io/charts/"
+    condition: whoami.enabled

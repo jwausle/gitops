@@ -1,0 +1,5 @@
+whoami:
+  enabled: true
+
+ingressRoute:
+  path: "/argocd/whoami2"
