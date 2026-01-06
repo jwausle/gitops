@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`argocd.{{ .Values.argocd.domain }}`)
+    - match: PathPrefix(`/argocd`)
       kind: Rule
       services:
         - name: argocd-server

@@ -21,10 +21,9 @@ configs:
     params:
       server:
         insecureSkipVerify: true
-##        rootpath: "/argocd"
-##        basehref: "/argo-cd"
-##        x.frame.options: ""
-##        disable.auth: true
+        ingress:
+          enabled: true
+          path: argocd
 
 crds:
   install: true

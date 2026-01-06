@@ -4,20 +4,14 @@ SCRIPT_DIR=$(dirname "$0")
 ARGOCD_DIR="$SCRIPT_DIR"
 ARGOCD_REPO="https://argoproj.github.io/argo-helm"
 ARGOCD_VERSION="9.2.4"
-ARGOCD_APP_VERSION="3.2.3" # Should in sync with `Chart.yaml$.appVersion`
 ARGOCD_APP_REPO_TOKEN="ghp_" # Split token into two parts to avoid github security issue
 ARGOCD_APP_REPO_TOKEN+="YcukYDwxbW6Ja4i58hXGnobh26bh670GvcE2"
-ARGOCD_APP_REPO_TOKEN=${GITLAB_ACCESS_TOKEN:-${ARGOCD_APP_REPO_TOKEN}}
+ARGOCD_APP_REPO_TOKEN=${GITHUB_TOKEN:-${ARGOCD_APP_REPO_TOKEN}}
 ARGOCD_APP_REPO="https://github.com/jwausle/gitops.git"
 
 # There are some hardcoded drawbacks in used argocd/**/*.yaml files regarding namespace
 ARGOCD_RELEASE_NAME="argocd"
 ARGOCD_RELEASE_NAMESPACE="argocd"
-
-if ! [[ "$KUBECONFIG" =~ "treboul" ]] && ! [[ "$*" =~ "--skip-config-check" ]]; then
-  echo "KUBECONFIG is not in directory of /treboul/ - '$KUBECONFIG'"
-  exit 1
-fi
 
 HELMCHART_ONLY=false
 if [[ "$*" =~ "--helm-only" ]]; then
