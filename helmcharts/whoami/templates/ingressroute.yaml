@@ -1,4 +1,4 @@
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: {{ template "whoami.fullname" . }}
@@ -19,7 +19,7 @@ spec:
         - name: {{ template "whoami.fullname" . }}
           port: http
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: {{ template "whoami.fullname" . }}-tls
@@ -41,7 +41,7 @@ spec:
           port: http
   tls: {}
 ---
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
   name: {{ template "whoami.fullname" . }}

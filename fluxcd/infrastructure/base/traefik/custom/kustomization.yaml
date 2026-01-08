@@ -3,6 +3,9 @@ kind: Kustomization
 namespace: ${traefik_namespace:=forgetToConfigure}
 resources:
 - traefik-tls-store.yaml
+- traefik-dashboard-auth.yaml
+- traefik-dashboard-auth-secret.yaml
+
 generatorOptions:
   disableNameSuffixHash: true
 secretGenerator:

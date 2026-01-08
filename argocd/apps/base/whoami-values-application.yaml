@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: whoami-values
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  destination:
+    namespace: example2
+    server: https://kubernetes.default.svc
+  sources:
+    - repoURL: https://cowboysysop.github.io/charts/
+      chart: whoami
+      targetRevision: "6.0.0"
+      helm:
+        valueFiles:
+          - $values/argocd/whoami-values/localhost-values.yaml
+    - repoURL: https://github.com/jwausle/gitops.git
+      targetRevision: main
+      ref: values
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+      - RespectIgnoreDifferences=true
+      - ServerSideApply=true
