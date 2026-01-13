@@ -11,8 +11,8 @@ export GITHUB_USER=<your-github-user>                              # jwausle[-de
 export GITHUB_TOKEN=<your-github-token-rw>                         # ghp_GFHTtbxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 export GITHUB_REPO_URL=https://github.com/$GITHUB_USER/gitops.git  # https://github.com/jwausle[-demo1|-demo2]/gitops.git 
 
-git reset demo/0 --hard
-bash script/utils/sed-repo-urls.sh $GITHUB_REPO_URL
+git reset origin/demo/0 --hard
+bash scripts/utils/sed-repo-urls.sh $GITHUB_REPO_URL
 
 git add .
 git commit -m"Reset repo url $GITHUB_REPO_URL"
@@ -34,9 +34,10 @@ kubectl get pods -A
 * `git` - current version - e.g. [v2.5.0](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) `git version`
 * `docker` - current version - e.g. [desktop:v29.0.1](https://docs.docker.com/desktop/setup/install/) `docker --version`
 * `kubectl` - current version - e.g [v1.34.2](https://kubernetes.io/de/docs/tasks/tools/install-kubectl/#installation-der-kubectl-anwendung-mit-curl) `kubectl version`
-* `kustomize` - current version - e.g. [v5.8.0](https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.8.0) `kustomize version` 
 * `fluxcd` - fix [v2.7.5](https://github.com/fluxcd/flux2/releases/tag/v2.7.5) `flux --version`
-* `argocd` - current version - e.g. [v3.2.3](https://argo-cd.readthedocs.io/en/stable/cli_installation/) `argocd version`
+* `kustomize` (optional) - current version - e.g. [v5.8.0](https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.8.0) `kustomize version` 
+* `argocd` (optional) - current version - e.g. [v3.2.3](https://argo-cd.readthedocs.io/en/stable/cli_installation/) `argocd version`
+* `helm` (optional) - current version - e.g. [v3.19.2](https://helm.sh/docs/intro/install/) `helm version`
 * `ssh` - current version - only when AWS/EC2 will be used
 
 ## Demo kubectl 
@@ -49,9 +50,9 @@ coredns-54bf7cdff9-twhfz                  1/1     Running   0          3d18h
 local-path-provisioner-69879d7dd7-25w2s   1/1     Running   0          3d18h
 metrics-server-77dbbf84b-vj2zk            1/1     Running   0          3d18h
 
-bash kubeclt/deploy-traefik.sh            # browse: https://localhost/dashboard/#
-bash kubeclt/deploy-weave.sh              # browse: https://localhost/
-bash kubeclt/deploy-whoami.sh             # browse: https://localhost/kubectl/whoami/test
+bash kubectl/deploy-traefik.sh            # browse: https://localhost/dashboard/#
+bash kubectl/deploy-weave.sh              # browse: https://localhost/
+bash kubectt/deploy-whoami.sh             # browse: https://localhost/kubectl/whoami/test
 ```
 
 ## Demo - fluxcd
@@ -88,7 +89,7 @@ git merge origin/demo/1
 git push origin main
 
 # Wait until pod appear - e.g. `kubectl get pods -A --watch` 
-curl -k https://localhost/whoami/test
+curl -k https://localhost/fluxcd/whoami/test
 ```
 
 ### Demo 2 - fluxcd
@@ -198,7 +199,7 @@ argocd-repo-server-d74dcb684-fqwwt                  1/1     Running   0         
 argocd-server-6f68b9b447-fjb99                      1/1     Running   0          3d6h
 
 # Login command line
-DOMAIN=localhost
+export DOMAIN=localhost
 argocd login $DOMAIN --grpc-web-root-path=/argocd --username=admin --password=admin --grpc-web
 
 # Wait until argocd application appear
